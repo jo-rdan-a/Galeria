@@ -34,7 +34,6 @@ const View = (() => {
   let onAdd       = () => {};
   let onRemove    = () => {};
 
-  /* ── FILTROS ── */
   function renderFilters(categories, active) {
     filterWrap.innerHTML = categories.map(cat =>
       `<button class="filter-btn ${cat === active ? 'active' : ''}" data-cat="${cat}">
@@ -59,7 +58,6 @@ const View = (() => {
     }
   }
 
-  /* ── GALERIA ── */
   function renderGallery(images) {
     const existing = grid.querySelectorAll('.img-card');
     existing.forEach(c => c.classList.add('card-exit'));
@@ -99,7 +97,6 @@ const View = (() => {
     }, existing.length ? 200 : 0);
   }
 
-  /* ── PAGINAÇÃO ── */
   function renderPagination(current, total) {
     pagination.innerHTML = '';
     if (total <= 1) return;
@@ -125,14 +122,12 @@ const View = (() => {
     pagination.appendChild(next);
   }
 
-  /* ── STATUS ── */
   function renderStatus(total, page, totalPages) {
     status.innerHTML =
       `<strong>${total}</strong> imagem${total !== 1 ? 'ns' : ''} encontrada${total !== 1 ? 's' : ''}
        · Página <strong>${page}</strong> de <strong>${totalPages}</strong>`;
   }
 
-  /* ── LIGHTBOX ── */
   function openLightbox(img) {
     lbImg.src = img.src; lbImg.alt = img.title;
     lbTitle.textContent = img.title;
@@ -143,7 +138,6 @@ const View = (() => {
   lbClose.addEventListener('click', () => lightbox.classList.remove('open'));
   lightbox.addEventListener('click', e => { if (e.target === lightbox) lightbox.classList.remove('open'); });
 
-  /* ── MODAL ADICIONAR ── */
   btnOpenModal.addEventListener('click', () => modal.classList.add('open'));
   modalClose.addEventListener('click', () => _closeModal());
   modal.addEventListener('click', e => { if (e.target === modal) _closeModal(); });
@@ -198,7 +192,6 @@ const View = (() => {
     catNewWrap.style.display   = 'none';
   }
 
-  /* ── KEYDOWN GLOBAL ── */
   document.addEventListener('keydown', e => {
     if (e.key === 'Escape') {
       lightbox.classList.remove('open');
@@ -206,14 +199,12 @@ const View = (() => {
     }
   });
 
-  /* ── BUSCA ── */
   let debounceTimer;
   searchInput.addEventListener('input', () => {
     clearTimeout(debounceTimer);
     debounceTimer = setTimeout(() => onSearch(searchInput.value), 280);
   });
 
-  /* ── BIND CALLBACKS ── */
   function bindFilter(fn)  { onFilter = fn; }
   function bindSearch(fn)  { onSearch = fn; }
   function bindPage(fn)    { onPage   = fn; }
